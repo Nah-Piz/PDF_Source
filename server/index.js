@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, "app", "dist", "index.html")));
+app.use(express.static(path.join(__dirname, "app", "dist")));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "app", "dist", "index.html"));
