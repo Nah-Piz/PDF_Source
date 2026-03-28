@@ -4,33 +4,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   BookOpen,
   Home,
-  Library,
   Upload,
   Menu,
   Bell,
   Search,
-  TrendingUp,
-  Users,
-  Award,
 } from 'lucide-react';
 import UserDropdown from './components/userdropdown.component';
 import ScrollToTop from './components/scroll-to-top.component';
 import MobileMenu from './components/mobile-menu.component';
 import Footer from './components/footer.component';
 
-// Mobile Menu Component
-
-
-// User Dropdown Component
-
-
-// Scroll to Top Button
-
-
-// Footer Component
-
-
-// Main Layout Component
 const RootLayout = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

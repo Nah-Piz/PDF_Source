@@ -137,7 +137,7 @@ const BookCard = ({ book, viewMode = "grid", navigate }) => {
             src={baseURL + "/files/images/" + book.coverImage}
             alt={book.title}
             className="w-full h-full object-center group-hover:scale-110 transition-transform duration-300"
-            onError={(err) => { setImageError(true); console.log(err) }}
+            onError={(err) => setImageError(true)}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
