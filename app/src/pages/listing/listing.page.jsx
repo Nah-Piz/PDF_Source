@@ -136,7 +136,7 @@ const LibraryListing = () => {
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = filteredBooks?.slice(indexOfFirstBook, indexOfLastBook);
-  const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+  const totalPages = Math.ceil(filteredBooks?.length / booksPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
