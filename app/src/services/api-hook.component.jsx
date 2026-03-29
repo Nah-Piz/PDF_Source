@@ -10,7 +10,7 @@ function UseAPICall() {
     const getRequest = async (path) => {
         console.log("api called")
         try {
-          const response = await axios.get("/api/"+path);
+          const response = await axios.get("/api/"+path+"/");
             console.log("Response",response)
           return { success: true, data: response.data }; 
         } catch (error) {
