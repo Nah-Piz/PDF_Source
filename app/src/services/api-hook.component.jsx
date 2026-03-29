@@ -8,9 +8,10 @@ axios.defaults.baseURL = baseURL+"/api/"
 
 function UseAPICall() {
     const getRequest = async (path) => {
+        console.log("api called")
         try {
           const response = await axios.get(path);
-            console.log(response)
+            console.log("Response",response)
           return { success: true, data: response.data }; 
         } catch (error) {
           console.log(error)
