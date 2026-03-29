@@ -132,14 +132,6 @@ const LibraryListing = () => {
     }
   };
 
-  // Pagination
-  const indexOfLastBook = currentPage * booksPerPage;
-  const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = filteredBooks?.slice(indexOfFirstBook, indexOfLastBook);
-  const totalPages = Math.ceil(filteredBooks?.length / booksPerPage);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   const handleViewDetails = (book) => {
     navigate("/" + book)
   }
@@ -155,6 +147,14 @@ const LibraryListing = () => {
     );
   }
 
+  // Pagination
+  const indexOfLastBook = currentPage * booksPerPage;
+  const indexOfFirstBook = indexOfLastBook - booksPerPage;
+  const currentBooks = filteredBooks?.slice(indexOfFirstBook, indexOfLastBook);
+  const totalPages = Math.ceil(filteredBooks?.length / booksPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -163,7 +163,7 @@ const LibraryListing = () => {
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
               <h1 className="text-2xl font-bold bg-linear-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-                Library Collection
+                PDF Collection
               </h1>
               <p className="text-sm text-gray-600">
                 Discover and explore our digital library
@@ -220,8 +220,8 @@ const LibraryListing = () => {
             <div className="flex items-center justify-between mb-6">
               <p className="text-sm text-gray-600">
                 Showing{" "}
-                <span className="font-medium">{currentBooks.length}</span> of{" "}
-                <span className="font-medium">{filteredBooks.length}</span>{" "}
+                <span className="font-medium">{currentBooks?.length}</span> of{" "}
+                <span className="font-medium">{filteredBooks?.length}</span>{" "}
                 books
               </p>
               <div className="flex items-center gap-2">
@@ -232,7 +232,7 @@ const LibraryListing = () => {
             </div>
 
             {/* Books Display */}
-            {currentBooks.length === 0 ? (
+            {currentBooks?.length === 0 ? (
               <div className="bg-white rounded-xl shadow-md p-12 text-center">
                 <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-700 mb-2">
@@ -246,7 +246,7 @@ const LibraryListing = () => {
               <div
                 className={`grid ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" : "grid-cols-1"} gap-6`}
               >
-                {currentBooks.map((book, idx) => (
+                {currentBooks?.map((book, idx) => (
                   <BookCard
                     key={book.id || book._id || idx}
                     book={book}
