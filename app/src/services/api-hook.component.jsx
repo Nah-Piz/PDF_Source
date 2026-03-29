@@ -1,19 +1,20 @@
 import axios, { formToJSON } from "axios";
 import baseURL from "../assets/url";
 
-axios.defaults.baseURL = baseURL+"/api/"
+//axios.defaults.baseURL = baseURL+"/api/"
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.withCredentials = true;
 
 function UseAPICall() {
     const getRequest = async (path) => {
+        console.log("api called")
         try {
-          const response = await axios.get(path);
-            console.log(response)
+          const response = await axios.get("/api/"+path+"/");
+            console.log("Response",response)
           return { success: true, data: response.data }; 
         } catch (error) {
-          console.log(error)
+          console.log("spot 1",error)
           return { success: false, error };
         }
     }
