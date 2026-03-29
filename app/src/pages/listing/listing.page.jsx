@@ -132,14 +132,6 @@ const LibraryListing = () => {
     }
   };
 
-  // Pagination
-  const indexOfLastBook = currentPage * booksPerPage;
-  const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = filteredBooks?.slice(indexOfFirstBook, indexOfLastBook);
-  const totalPages = Math.ceil(filteredBooks?.length / booksPerPage);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   const handleViewDetails = (book) => {
     navigate("/" + book)
   }
@@ -154,6 +146,14 @@ const LibraryListing = () => {
       </div>
     );
   }
+
+  // Pagination
+  const indexOfLastBook = currentPage * booksPerPage;
+  const indexOfFirstBook = indexOfLastBook - booksPerPage;
+  const currentBooks = filteredBooks?.slice(indexOfFirstBook, indexOfLastBook);
+  const totalPages = Math.ceil(filteredBooks?.length / booksPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="min-h-screen">
