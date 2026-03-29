@@ -1,7 +1,7 @@
 import axios, { formToJSON } from "axios";
 import baseURL from "../assets/url";
 
-axios.defaults.baseURL = baseURL+"/api/"
+//axios.defaults.baseURL = baseURL+"/api/"
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.withCredentials = true;
