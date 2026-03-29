@@ -109,6 +109,7 @@ const LibraryListing = () => {
     try {
       setLoading(true);
       const response = await getRequest("pdfs");
+      if (response.success === false) throw new Error(response.error);
       const bookData = response.data;
       setBooks(bookData);
       setFilteredBooks(bookData);
