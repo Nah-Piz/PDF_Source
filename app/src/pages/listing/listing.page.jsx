@@ -232,7 +232,7 @@ const LibraryListing = () => {
             </div>
 
             {/* Books Display */}
-            {currentBooks.length === 0 ? (
+            {currentBooks?.length === 0 ? (
               <div className="bg-white rounded-xl shadow-md p-12 text-center">
                 <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-700 mb-2">
