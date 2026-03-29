@@ -14,7 +14,7 @@ function UseAPICall() {
             console.log("Response",response)
           return { success: true, data: response.data }; 
         } catch (error) {
-          console.log(error)
+          console.log("spot 1",error)
           return { success: false, error };
         }
     }
