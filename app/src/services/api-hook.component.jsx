@@ -1,7 +1,7 @@
 import axios, { formToJSON } from "axios";
 import baseURL from "../assets/url";
 
-//axios.defaults.baseURL = baseURL+"/api/"
+axios.defaults.baseURL = baseURL
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.withCredentials = true;
@@ -20,15 +20,16 @@ function UseAPICall() {
     }
     const postRequest = async (path,data) => {
         try {
-            const response = await axios.post(path,data);
+            const response = await axios.post("/api/" + path + "/", data);
             return {success: true, data: response.data}
         } catch (error) {
             return {success: false, error}
         }
     }
-    const uploadFile = async (path, formData) => {
+  const uploadFile = async (path, formData) => {
+      console.log("upload file called")
       try {
-        const response = await axios.post(path, formData, {
+        const response = await axios.post("/api/" + path + "/", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

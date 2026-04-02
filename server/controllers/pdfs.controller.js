@@ -2,6 +2,7 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import pdfs from "../models/pdfs.modal.js";
+import { generateDownloadUrl } from "../utils/cloudinary.config.js";
 
 export const getAllPDFS = async (req, res) => {
   try {
@@ -27,7 +28,7 @@ export const getPDFController = async (req, res) => {
         subjects: { $in: foundPDF.subjects },
       })
       .limit(4)
-      .lean(); 
+      .lean();
 
     res.send({ ...foundPDF, similar });
   } catch (error) {
@@ -39,9 +40,15 @@ export const uploadPDFController = async (req, res) => {
   const { body } = req;
   const { pdfFile } = req.files;
   const { coverImage } = req.files;
-  body.pdfFile = pdfFile[0].filename;
-  body.coverImage = coverImage[0].filename;
+  body.pdfFile = pdfFile[0].path;
+  body.coverImage = coverImage[0].path;
   body.subjects = JSON.parse(body.subjects);
+  const durl = generateDownloadUrl(
+    pdfFile[0].filename,
+    pdfFile[0].resource_type || "image",
+    body.title,
+  );
+  body.downloadUrl = durl;
 
   try {
     const tobeUploaded = new pdfs(body);
@@ -57,7 +64,8 @@ export const viewPDFController = async (req, res) => {
   try {
     const foundPDF = await pdfs.findById(id);
     if (!foundPDF || !fs.existsSync("uploads/documents/" + foundPDF.pdfFile))
-      return res.status(404).json("No pdf found.");
+      if (!foundPDF || !foundPDF.pdfFile)
+        return res.status(404).json("No pdf found.");
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
@@ -72,6 +80,8 @@ export const viewPDFController = async (req, res) => {
         foundPDF.pdfFile,
       ),
     );
+
+    res.redirect(foundPDF.pdfFile);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -82,7 +92,8 @@ export const downloadPDFController = async (req, res) => {
   try {
     const foundPDF = await pdfs.findById(id);
     if (!foundPDF || !fs.existsSync("uploads/documents/" + foundPDF.pdfFile))
-      return res.status(404).json("No pdf found.");
+      if (!foundPDF || !foundPDF.pdfFile)
+        return res.status(404).json("No pdf found.");
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
@@ -97,6 +108,8 @@ export const downloadPDFController = async (req, res) => {
         foundPDF.pdfFile,
       ),
     );
+
+    res.redirect(foundPDF.pdfFile);
   } catch (error) {
     res.status(500).send(error);
   }

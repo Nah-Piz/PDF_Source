@@ -139,7 +139,7 @@ const BookViewPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mb-4"></div>
           <p className="text-gray-600">Loading book details...</p>
@@ -172,7 +172,7 @@ const BookViewPage = () => {
       {/* PDF Viewer Modal */}
       {showPDF && (
         <PDFViewer
-          pdfUrl={`${baseURL}/files/documents/${book.pdfFile}`}
+          pdfUrl={book.pdfFile}
           onClose={() => setShowPDF(false)}
         />
       )}
@@ -203,7 +203,7 @@ const BookViewPage = () => {
               <div className="relative">
                 {book.coverImage ? (
                   <img
-                    src={`${baseURL}/files/images/${book.coverImage}`}
+                    src={book.coverImage}
                     alt={book.title}
                     className="rounded-lg shadow-2xl max-h-80 object-contain"
                   />
@@ -242,13 +242,14 @@ const BookViewPage = () => {
                     <BookOpen className="w-4 h-4" />
                     Read Now
                   </button>
+                <a href={book?.downloadUrl}>
                   <button
-                    onClick={handleDownload}
                     className="px-6 py-2 border border-emerald-600 text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors flex items-center gap-2"
                   >
                     <Download className="w-4 h-4" />
                     Download
-                  </button>
+                    </button>
+                    </a>
                 </div>
               </div>
 

@@ -9,7 +9,6 @@ import {
   Eye,
   Download,
 } from "lucide-react"; 
-import baseURL from "../../../assets/url";
 import { useEffect } from "react";
 
 const BookCard = ({ book, viewMode = "grid", navigate }) => {
@@ -17,7 +16,7 @@ const BookCard = ({ book, viewMode = "grid", navigate }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    setImageError(false)
+    setImageError(false);
   },[viewMode])
 
   if (viewMode === "list") {
@@ -31,7 +30,7 @@ const BookCard = ({ book, viewMode = "grid", navigate }) => {
           <div className="md:w-48 h-48 md:h-auto relative bg-linear-to-r from-emerald-500 to-blue-500">
             {book.coverImage && !imageError ? (
               <img
-                src={baseURL + "/files/images/" + book.coverImage}
+                src={book.coverImage}
                 alt={book.title}
                 className="w-full h-full object-cover"
                 onError={() => setImageError(true)}
@@ -89,11 +88,6 @@ const BookCard = ({ book, viewMode = "grid", navigate }) => {
               </div>
 
               <div className="flex gap-2 ml-4">
-                <a
-                  href={baseURL + "/api/pdfs/" + book._id + "/view"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
                   <button
                     onClick={() => navigate(book._id)}
                     className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
@@ -101,8 +95,7 @@ const BookCard = ({ book, viewMode = "grid", navigate }) => {
                   >
                     <Eye className="w-5 h-5" />
                   </button>
-                </a>
-                <a href={baseURL + "/api/pdfs/" + book._id + "/download"}>
+                <a href={book?.downloadUrl}>
                   <button
                     className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
                     title="Download PDF"
@@ -134,7 +127,7 @@ const BookCard = ({ book, viewMode = "grid", navigate }) => {
       <div className="relative h-56 bg-linear-to-r from-emerald-500 to-blue-500 overflow-hidden">
         {book.coverImage && !imageError ? (
           <img
-            src={baseURL + "/files/images/" + book.coverImage}
+            src={book.coverImage}
             alt={book.title}
             className="w-full h-full object-center group-hover:scale-110 transition-transform duration-300"
             onError={(err) => setImageError(true)}
@@ -142,23 +135,20 @@ const BookCard = ({ book, viewMode = "grid", navigate }) => {
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <BookOpen className="w-16 h-16 text-white opacity-50" />
-          </div> 
+          </div>
         )}
 
         {/* Hover Overlay */}
         <div
           className={`absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center gap-3 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
         >
-          <a
-            href={baseURL + "/api/pdfs/" + book._id + "/view"}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => navigate(book._id)}
+            className="p-2 bg-white rounded-full hover:bg-emerald-500 hover:text-white transition-colors"
           >
-            <button className="p-2 bg-white rounded-full hover:bg-emerald-500 hover:text-white transition-colors">
-              <Eye className="w-5 h-5" />
-            </button>
-          </a>
-          <a href={baseURL + "/api/pdfs/" + book._id + "/download"}>
+            <Eye className="w-5 h-5" />
+          </button>
+          <a href={book.downloadUrl}>
             <button className="p-2 bg-white rounded-full hover:bg-emerald-500 hover:text-white transition-colors">
               <Download className="w-5 h-5" />
             </button>
