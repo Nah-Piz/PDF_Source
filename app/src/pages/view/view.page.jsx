@@ -50,7 +50,7 @@ const BookViewPage = () => {
   const fetchBookDetails = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8080/api/pdfs/${id}`);
+      const response = await axios.get(`https://pdf-source.onrender.com//api/pdfs/${id}`);
       setBook(response.data);
       setReviews(response.data.reviews || []);
       setSimilarBooks(response.data.similar || []);
